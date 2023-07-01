@@ -1,0 +1,46 @@
+{
+    "scriptDatas" : [
+        {
+            "spriteName"    : "Owl",
+            "spriteLeft"    : true,
+            "actorName"     : "Owl",
+            "num"           : 0,
+            "line"          : "Hello"
+        },
+        {
+            "spriteName"    : "Hamster",
+            "spriteLeft"    : false,
+            "actorName"     : "Hamster",
+            "num"           : 1,
+            "line"          : "World"
+        },
+        {
+            "spriteName"    : "Owl",
+            "spriteLeft"    : true,
+            "actorName"     : "Owl",
+            "num"           : 2,
+            "line"          : "Hello"
+        },
+        {
+            "spriteName"    : "Owl",
+            "spriteLeft"    : true,
+            "actorName"     : "Owl",
+            "num"           : 3,
+            "line"          : "Hello"
+        },
+        {
+            "spriteName"    : "Hamster",
+            "spriteLeft"    : false,
+            "actorName"     : "Hamster",
+            "num"           : 4,
+            "line"          : "World"
+        },
+        {
+            "spriteName"    : "Hamster",
+            "spriteLeft"    : false,
+            "actorName"     : "Hamster",
+            "num"           : 5,
+            "line"          : "World"
+        }
+    ]
+}

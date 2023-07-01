@@ -31,10 +31,10 @@
 ***
 
 - **스토리 설명** :speech_balloon:
->>* 달나라 토끼의 주 업무는 맛있는 떡을 만드는 것! 이지만… 주인공 토끼(플레이어)는 `이상한 나라의 앨리스`를 읽고 시계 토끼를 동경하게 되어 앨리스를 찾아 지구로 떠나게 되었습니다. 지구에 도착했지만 생각보다 모험이 길고 험난할 것 같습니다... 주인공은 `도약이 가능한 회중시계`를 이용해 사건을 점차 해결해 나가게 됩니다. 과연 주인공은 무사히 `앨리스`를 찾을 수 있을까요? 
+>>* 달나라 토끼의 주 업무는 맛있는 떡을 만드는 것! 이지만… 토끼는 이상한 나라의 앨리스를 읽고 시계 토끼를 동경하게 되어 `앨리스`를 찾아 지구로 떠나게 되었습니다. 지구에 도착했지만 다양한 동화 속 인물들의 사건을 해결해야만 앨리스를 찾을 수 있으며, 토끼는 `도약이 가능한 회중시계`를 이용해 사건을 점차 해결해 나가게 됩니다. 구석구석 숨겨진 사건에 필요한 수집품을 찾아보세요! 하지만 수집품을 찾는 과정은 결코 쉽지는 않을 것입니다...
 
 - **튜토리얼** :arrow_forward:
->>* 파인딩 앨리스의 기본적인 기능을 익힙니다.
+>>* Finding Alice의 기본적인 기능을 익힙니다.
 >>     * 시계, 점프 등
 
 - **챕터 1** :deciduous_tree:
@@ -81,32 +81,29 @@
 ## Finding Alice 이미지
 ***
 
-- **튜토리얼 이미지**   
+- **튜토리얼**   
   <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/b9e5448f-95e9-4ebe-97b2-7d5ea64cc1a0" width="70%"  height="70%">
 
-- **챕터 1 이미지**   
+- **챕터 1**   
   <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/a52fbb15-6a47-42a2-abf2-24f8c0164a96" width="70%"  height="70%">
 
-- **플랫폼 이미지**   
+- **플랫폼**   
   <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/20389222-d7bb-4fd6-8fa2-a79adba3d763" width="70%"  height="70%">
 
-- **캐릭터 이미지**     
+- **캐릭터**     
   <img src = "https://github.com/yujini1121/FindingAlice_2022/assets/107358820/a334200d-4eb4-4b1c-9ab3-08be65e9dc54" width="70%"  height="70%">
 
-- **캐릭터 스프라이트 이미지**   
-  <img src = "https://raw.githubusercontent.com/Gyuri0315/FindingAlice/main/Deck/Rabbit_Sprite.PNG" width="70%"  height="70%">
-
-- **아이템 이미지**   
-  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/1f2a926f-0e0f-4497-8685-fd1fa4356091" width="25%"  height="25%">
-  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/79174668-d81c-463d-90ca-e8284bf91b65" width="25%"  height="25%">
-  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/ea293676-843e-431e-9054-4e89c34933fe" width="25%"  height="25%">
+- **아이템**   
+  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/1f2a926f-0e0f-4497-8685-fd1fa4356091" width="22%"  height="22%">
+  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/79174668-d81c-463d-90ca-e8284bf91b65" width="22%"  height="22%">
+  <img src = "https://github.com/Gyuri0315/FindingAlice/assets/122785488/ea293676-843e-431e-9054-4e89c34933fe" width="22%"  height="22%">
 <br/>
 
 ***   
 ## Finding Alice 스크립팅   
 ***
 
-- **파인딩앨리스 주요 스크립트**
+- **Finding Alice 주요 스크립트**
 [주요 스크립트에 대한 설명]
 
 - **코딩 스타일 가이드 라인**   
@@ -141,12 +138,12 @@
 ***
 ## Finding Alice Pages
 ***
-- [**파인딩앨리스 설문조사**](https://docs.google.com/forms/d/e/1FAIpQLScKXSLZwnU7ZOz2QlLN3dmoqAGOPZDtzA7EsF5PSpt_eQ7j4g/viewform?usp=sharing)
-- **[파인딩앨리스 기획서 Notion Page](https://absorbed-splash-9bb.notion.site/a1834c6a357d4bfe84a5722cd9f11c60)**
+- **[Finding Alice 설문조사](https://docs.google.com/forms/d/e/1FAIpQLScKXSLZwnU7ZOz2QlLN3dmoqAGOPZDtzA7EsF5PSpt_eQ7j4g/viewform?usp=sharing)**
+- **[Finding Alice 기획서](https://absorbed-splash-9bb.notion.site/a1834c6a357d4bfe84a5722cd9f11c60)**
 <br/><br/>
 
 
-
+<!-- 
 ***   
 ## 멤버 소개  
 ***   
@@ -183,39 +180,39 @@
 | 1 | 김태원 | [ 그래픽 ] | 3D 플랫폼 |
 
 *& Thanks to [염승민](https://github.com/SeungminYeom)*
-</div></details><br/><br/><br/><br/>
+</div></details><br/><br/><br/><br/> -->
 
 *****
 ## 멤버 소개
 *****
 ### 2022
 | 학년 | 이름 | 구분 | 비고 |
-| --- | --- | -------- | --- |
-| 4 | [이승찬](https://github.com/gehfand729) | [ 프로그래밍 ] | 메인 프로그래머 |
-| 3 | [염승민](https://github.com/SeungminYeom) | [ 기획 / 프로그래밍 ] | 메인 프로그래머 |
-| 3 | [허재혁](https://github.com/walaHeo) | [ 그래픽 ] | 3D 배경 |
-| 2 | 변재현 | [ 기획 ] | 시나리오 |
-| 1 | [김현모](https://github.com/HyeonMoKim0) | [ 기획 / 프로그래밍 ] | 레벨 디자인 |
-| 1 | 황송희 | [ 그래픽 ] | 캐릭터 원화 & 아이콘 |
-| 1 | [송치원](https://github.com/Chiweon) | [ 그래픽 ] | 2D |
-| 1 | 이상윤 | [ 그래픽 ] | 3D 플랫폼 |
-| 1 | [이유진](https://github.com/yujini1121) | [ 프로그래밍 ] | 서브 프로그래머 |
+| --- | --- | --- | --- |
+| 4 | [이승찬](https://github.com/gehfand729) | 프로그래밍 | 메인 프로그래머 |
+| 3 | [염승민](https://github.com/SeungminYeom) | 기획 / 프로그래밍 | 메인 프로그래머 |
+| 3 | [허재혁](https://github.com/walaHeo) | 그래픽 | 3D 배경 & 오브젝트 |
+| 2 | 변재현 | 기획 | 시나리오 |
+| 1 | [김현모](https://github.com/HyeonMoKim0) | 기획 / 프로그래밍 | 레벨 디자인 |
+| 1 | 황송희 | 그래픽 | 캐릭터 원화 & 아이콘 |
+| 1 | [송치원](https://github.com/Chiweon) | 그래픽 | 2D 오브젝트 |
+| 1 | 이상윤 | 그래픽 | 3D 플랫폼 |
+| 1 | [이유진&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;](https://github.com/yujini1121) | 프로그래밍 | 서브 프로그래머 |
 
 <br/>
 
 ### 2023
 | 학년 | 이름 | 구분 | 비고 |
-| --- | --- | -------- | --- |
-| 4 | [정하영](https://www.artstation.com/674) | [ 그래픽 ] | 원화 |
-| 3 | [고민철](https://github.com/gmcc0713) | [ 프로그래밍 ] | 메인 프로그래머 |
-| 3 | 김태현 | [ 프로그래밍 ] | 서브 프로그래머 |
-| 3 | 이수진 | [ 그래픽 ] | 2D 애니메이션 |
-| 3 | 원소영 | [ 그래픽 ] | 3D 배경 |
-| 2 | [김민지](https://www.artstation.com/user-433749/profile) | [ 그래픽 ] | 3D 플랫폼 |
-| 2 | [이유진](https://github.com/yujini1121) | [ 프로그래밍 ] | 메인 프로그래머 |
-| 2 | [김규리](https://github.com/Gyuri0315) | [ 프로그래밍 ] | 서브 프로그래머 |
-| 2 | 정민주 | [ 프로그래밍 ] | 서브 프로그래머 |
-| 1 | 진유리 | [ 그래픽 ] | 이펙트 |
-| 1 | 김태원 | [ 그래픽 ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 3D 플랫폼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| --- | --- | --- | --- |
+| 4 | [정하영](https://www.artstation.com/674) | 그래픽 | 캐릭터 원화 |
+| 3 | [고민철](https://github.com/gmcc0713) | 프로그래밍 | 메인 프로그래머 |
+| 3 | 김태현 | 프로그래밍 | 서브 프로그래머 |
+| 3 | 이수진 | 그래픽 | 2D 애니메이션 |
+| 3 | 원소영 | 그래픽 | 3D 배경 |
+| 2 | [김민지](https://www.artstation.com/user-433749/profile) | 그래픽 | 3D 플랫폼 |
+| 2 | [이유진](https://github.com/yujini1121) | 프로그래밍 | 메인 프로그래머 |
+| 2 | [김규리](https://github.com/Gyuri0315) | 프로그래밍 | 서브 프로그래머 |
+| 2 | 정민주 | 프로그래밍 | 서브 프로그래머 |
+| 1 | 진유리 | 그래픽 | 이펙터 |
+| 1 | 김태원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 그래픽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 3D 플랫폼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 <!-- 태원씨 죄송해요 -->
 *& Thanks to [염승민](https://github.com/SeungminYeom)*
