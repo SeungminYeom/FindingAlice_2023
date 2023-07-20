@@ -1,11 +1,18 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+
+
+// ===================================================================================================
+// 플레이어의 움직임을 정의한 클래스
+//
+// 각 챕터의 이동 코드에서 상속하여 사용한다.
+// ===================================================================================================
 
 public class Movement : MonoBehaviour
 {
+    protected Joystick      joystick;
+
     protected Rigidbody     rigid;
 
     protected IEnumerator   smoothJump;
@@ -19,7 +26,6 @@ public class Movement : MonoBehaviour
     [SerializeField] protected float moveSpeed          = 5f;
     [SerializeField] protected float speedDecreaseRate  = 0.98f;
     [SerializeField] protected float jumpForce          = 15f;
-
     protected float xAxis;
 
     [Header("Test in Inspector")]
@@ -27,17 +33,28 @@ public class Movement : MonoBehaviour
     [SerializeField] protected bool jumpByKey           = false;
     [SerializeField] protected bool jumpable            = false;
     [SerializeField] protected bool movable             = true;
+    [SerializeField] protected bool isTalking           = false;
 
     protected virtual void Start()
     {
         rigid = GetComponent<Rigidbody>();
         vecClockFollow = Vector3.zero;
+
+        // 조이스틱 설정에 따라 컴포넌트 지정
+        if (DataController.instance.joystickFixed)
+            joystick = GameObject.Find("Joystick").GetComponent<FixedJoystick>();
+        else
+            joystick = GameObject.Find("Joystick").GetComponent<FloatingJoystick>();
     }
 
+    // ===============================================================================================
+    // 플레이어의 이동 코드
+    // ===============================================================================================
     protected virtual void Move()
     {
         if (!movable) return;
 
+        // 좌우 이동에 따라 플레이어 Flip
         if ((transform.localScale.x < 0 && xAxis > 0) || (transform.localScale.x > 0 && xAxis < 0))
         {
             Vector3 reverse = transform.localScale;
@@ -47,6 +64,7 @@ public class Movement : MonoBehaviour
 
         Vector3 velocity = new Vector3(xAxis, 0, 0);
 
+        // 추후 수정 필요
         if (Mathf.Abs(vecClockFollow.x) > moveSpeed)
         {
             velocity.x = vecClockFollow.x;
@@ -61,11 +79,24 @@ public class Movement : MonoBehaviour
     }
 
     // ===============================================================================================
+    // 점프 버튼 입력 또는 점프 입력에 의해 호출되는 함수
+    // ===============================================================================================
+    public void JumpInput()
+    {
+        if (!jumpByKey && jumpable)
+        {
+            jumpByKey = true;
+        }
+    }
+
+    // ===============================================================================================
+    // 플레이어의 점프 코드
+    //
     // jumpByKey가 true일 때, jumpable를 false로 만들어 더 점프할 수 없는 상태로 변경
     // ===============================================================================================
     protected virtual void Jump()
     {
-        if (!jumpByKey || !jumpable) return;
+        if (!jumpByKey || !jumpable || isTalking) return;
 
         jumpable = false;
         rigid.velocity = Vector3.zero;
@@ -86,17 +117,8 @@ public class Movement : MonoBehaviour
     // ===============================================================================================
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Platform")
+        if (collision.gameObject.CompareTag("Platform"))
         {
-            if (isClockFollowing)
-            {
-                GameObject.Find("Clock").GetComponent<Clock>().ClockReturnIdle();
-                rigid.useGravity = true;
-                rigid.velocity = Vector3.zero;
-                movable = true;
-                isClockFollowing = false;
-            }
-
             // 0.85f(Cos) ≒ 약 31.78도
             if (Vector3.Dot(collision.contacts[0].point - transform.position, Vector3.down) > 0.85f)
             {
@@ -118,27 +140,39 @@ public class Movement : MonoBehaviour
     // ===============================================================================================
     protected virtual void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Platform" && !collideToWall)
+        if (collision.gameObject.CompareTag("Platform"))
         {
-            for (int i = 0; i < collision.contacts.Length; i++)
+            if (!collideToWall)
             {
-                // 0.85f(Cos) ≒ 약 31.78도
-                if (Vector3.Dot(collision.contacts[i].point - transform.position, Vector3.down) <= 0.85f)
+                for (int i = 0; i < collision.contacts.Length; i++)
                 {
-                    collideToWall = true;
-                    break;
-                }
-                else if (clockCancel)
-                {
-                    clockCancel = false;
-                    jumpable = true;
+                    // 0.85f(Cos) ≒ 약 31.78도
+                    if (Vector3.Dot(collision.contacts[i].point - transform.position, Vector3.down) <= 0.85f)
+                    {
+                        collideToWall = true;
+                        break;
+                    }
+                    // 플랫폼에 서 있는 상태에서 시계 사용 후 취소되었을 때 다시 점프 가능한 상태로 변경
+                    else if (clockCancel)
+                    {
+                        clockCancel = false;
+                        jumpable = true;
+                    }
                 }
             }
+        }
+
+        // 시계로 이동 중에 플랫폼과 접촉 시 시계 사용 취소
+        if (isClockFollowing)
+        {
+            ClockStateEnd();
+            ClockManager.instance.ClockReturnIdle();
+            rigid.velocity = Vector3.zero;
         }
     }
 
     // ===============================================================================================
-    // 플랫폼의 바닥에서 벗어날 때만 호출되는 함수
+    // 플랫폼의 바닥에서 벗어날 때 호출되는 함수
     //
     // 벽에서 벗어났다면 호출되지 않으며, 플랫폼에서 점프하지 않고 미끄러 떨어진 상태라면 코루틴 실행하여
     // 일정 시간 뒤에 점프 불가 상태로 전환
@@ -148,7 +182,7 @@ public class Movement : MonoBehaviour
     // ===============================================================================================
     protected virtual void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Platform")
+        if (collision.gameObject.CompareTag("Platform"))
         {
             if (collideToWall)
                 collideToWall = false;
@@ -179,8 +213,8 @@ public class Movement : MonoBehaviour
     // ===============================================================================================
     public void StateBeginShoot()
     {
-        jumpable = false;
         movable = false;
+        jumpable = false;
     }
 
     // ===============================================================================================
@@ -190,7 +224,7 @@ public class Movement : MonoBehaviour
     {
         rigid.useGravity = false;
         rigid.velocity = vec;
-        isClockFollowing = true;
+        StartCoroutine(WaitFrame());
     }
 
     // ===============================================================================================
@@ -201,37 +235,55 @@ public class Movement : MonoBehaviour
         vecClockFollow = vec * 4;
 
         isClockFollowing = false;
-        movable = true;
         rigid.useGravity = true;
         clockCancel = true;
+        movable = true;
     }
 
+    // ===============================================================================================
+    // 시계 사용이 취소되어 시계와 관련된 상태가 종료되었을 때의 행동
+    // ===============================================================================================
     public void ClockStateEnd()
     {
         vecClockFollow = Vector3.zero;
         isClockFollowing = false;
-        movable = true;
         rigid.useGravity = true;
         clockCancel = true;
+        movable = true;
     }
 
-    public void StateDialogueBegin(Vector3 Pos)
+    // ===============================================================================================
+    // 다이얼로그를 출력이 시작되었을 때 플레이어 행동
+    // ===============================================================================================
+    public void StateDialogueBegin()
     {
         vecClockFollow = Vector3.zero;
+        rigid.velocity = Vector3.zero;
         isClockFollowing = false;
         rigid.useGravity = false;
         movable     = false;
-        jumpable    = false;
+        isTalking   = true;
 
         ClockManager.instance.ClockReturnIdle();
-
-        rigid.velocity = Vector3.zero;
-        transform.position = Pos;
     }
 
+    // ===============================================================================================
+    // 다이얼로그를 출력이 종료되었을 때 플레이어 행동
+    // ===============================================================================================
     public void StateDialogueEnd()
     {
+        rigid.useGravity = true;
         movable     = true;
-        jumpable    = true;
+        isTalking   = false;
+    }
+
+    // ===============================================================================================
+    // 플랫폼에 서있는 상태에서 Vector.up 성분 방향으로 시계를 날리자마자 OnCollisionStay로 인해
+    // 시계 사용이 취소되는 것을 방지하기 위해 다음 FixedUpdate 실행 후 시계를 따라가는 상태로 변경
+    // ===============================================================================================
+    private IEnumerator WaitFrame()
+    {
+        yield return new WaitForFixedUpdate();
+        isClockFollowing = true;
     }
 }

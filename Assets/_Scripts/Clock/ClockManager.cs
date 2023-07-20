@@ -1,8 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Runtime.Versioning;
 using UnityEngine;
+
+
+// ===================================================================================================
+// ClockManager 오브젝트에 Attach되는 스크립트
+
+// 시계와 플레이어를 중재하고, 시계와 관련된 UI처리를 한다.
+// ===================================================================================================
 
 public class ClockManager : MonoBehaviour
 {
@@ -17,12 +22,11 @@ public class ClockManager : MonoBehaviour
     private GameObject          clock;
     private List<GameObject>    clockUI;
     private Coroutine           clockReload;
+
     private int clockMaxCount = 2;
-    [SerializeField] private int _clockCounter;
-    [SerializeField] private float clockReloadTime = 3f;
-
-    [SerializeField] private bool _clockShootable = true;
-
+    [SerializeField] private int    _clockCounter;
+    [SerializeField] private float  clockReloadTime = 3f;
+    [SerializeField] private bool   _clockShootable = true;
 
     // ===============================================================================================
     // 시계 발사 횟수를 관리하는 프로퍼티
@@ -62,6 +66,9 @@ public class ClockManager : MonoBehaviour
         }
     }
 
+    // ===============================================================================================
+    // 시계를 사용할 수 없는 상태(Dialogue 출력 등)를 관리하는 프로퍼티
+    // ===============================================================================================
     public bool clockShootable
     {
         get
@@ -79,35 +86,33 @@ public class ClockManager : MonoBehaviour
         clock = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
         clockUI = new List<GameObject>();
         clockCounter = clockMaxCount;
+
         for (int i = 0; i < clockMaxCount; i++)
         {
             clockUI.Add(GameObject.Find("ClockCounter").transform.GetChild(i).gameObject);
         }
     }
 
-    private void Update()
+    // ===============================================================================================
+    // 시계 사용 입력이 주어졌을 때 호출되는 함수
+    // ===============================================================================================
+    public void ClockBegin()
     {
-        if (Application.platform == RuntimePlatform.Android)
+        if (clockCounter > 0 && clockShootable)
         {
-
+            clock.SetActive(true);
         }
-        else
+    }
+
+    // ===============================================================================================
+    // 시계 사용 입력이 종료되었을 때 호출되는 함수
+    // ===============================================================================================
+    public void ClockEnd()
+    {
+        if (clock.activeInHierarchy)
         {
-            if (clockCounter > 0 && clockShootable)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    clock.SetActive(true);
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    if (clock.activeInHierarchy)
-                    {
-                        clock.GetComponent<Clock>().ClockFollow();
-                        clockCounter--;
-                    }
-                }
-            }
+            clock.GetComponent<Clock>().ClockFollow();
+            clockCounter--;
         }
     }
 
@@ -128,6 +133,9 @@ public class ClockManager : MonoBehaviour
         }
     }
 
+    // ===============================================================================================
+    // 시계의 값을 원복시키는 함수
+    // ===============================================================================================
     public void ClockReturnIdle()
     {
         if (clock.activeSelf)
