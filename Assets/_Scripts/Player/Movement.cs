@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour
     protected bool          isClockFollowing;
     protected bool          clockCancel;
 
+
     [Header("Movement Value")]
     [SerializeField] protected float moveSpeed          = 5f;
     [SerializeField] protected float speedDecreaseRate  = 0.98f;
@@ -34,6 +35,7 @@ public class Movement : MonoBehaviour
     [SerializeField] protected bool jumpable            = false;
     [SerializeField] protected bool movable             = true;
     [SerializeField] protected bool isTalking           = false;
+    [SerializeField] protected bool isTouchPlatform     = false;
 
     protected virtual void Start()
     {
@@ -87,6 +89,7 @@ public class Movement : MonoBehaviour
         {
             jumpByKey = true;
         }
+        //점프 애니메이션 여기(또는 밑에 jump 함수에)
     }
 
     // ===============================================================================================
@@ -101,6 +104,8 @@ public class Movement : MonoBehaviour
         jumpable = false;
         rigid.velocity = Vector3.zero;
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+
     }
 
     // ===============================================================================================
@@ -225,6 +230,7 @@ public class Movement : MonoBehaviour
         rigid.useGravity = false;
         rigid.velocity = vec;
         StartCoroutine(WaitFrame());
+
     }
 
     // ===============================================================================================

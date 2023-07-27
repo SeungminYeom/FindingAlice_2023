@@ -62,7 +62,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -259,10 +259,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Depletion_4_0: -525665973144740275
       Depletion_4_1: 2632365613601293014
       Depletion_4_2: -2098423595148395251
       Depletion_4_3: 6249713768262571986
-      Depletion_4_0: -525665973144740275
       Depletion_4_4: -4333148640223890058
   spritePackingTag: 
   pSDRemoveMatte: 0

@@ -45,7 +45,7 @@ public class StripedMarlinBossPattern : MonoBehaviour
 
     private IEnumerator Pattern()
     {
-        // 0, 2가 맞음, 테스트를 위해 1, 2로 변경한 것
+        // * 0, 2가 맞음, 테스트를 위해 잠시 1, 2로 변경한 것 *
         int patternCase = Random.Range(1, 2);
         float patternStartTime = Time.time;
 
@@ -66,7 +66,7 @@ public class StripedMarlinBossPattern : MonoBehaviour
                 {
                     float alpha = (Time.time - patternStartTime) / patternWarningTime;
                     color = new Color(color.r, color.g, color.b, alpha);
-                    Debug.Log(alpha);
+                    //Debug.Log(alpha);
 
                     testWarning.material.color = color;
                     yield return null;

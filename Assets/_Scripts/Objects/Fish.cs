@@ -14,8 +14,7 @@ public class Fish : MonoBehaviour
 
     [Header("FollowingFish")]
     [SerializeField] private float followSpeed = 3.0f; 
-    [SerializeField] private float returnSpeed = 6.0f; 
-    [SerializeField] private bool isFollowing = false;
+    [SerializeField] private float returnSpeed = 6.0f;
     private Vector3 originalPosition;
     private GameObject playerObject;
     private Transform playerTransform;
@@ -25,39 +24,23 @@ public class Fish : MonoBehaviour
         originalPosition = transform.position;
         playerObject = GameObject.FindGameObjectWithTag("Player");
         playerTransform = playerObject.transform;
-        StartCoroutine(FishUpdate());
-    }
 
-    private IEnumerator FishUpdate()
-    {
         switch (fishType)
         {
             case FishType.FollowingFish:
-                while (true)
-                {
-                    if (!isFollowing)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, originalPosition, returnSpeed * Time.deltaTime);
-                    }
-
-                    yield return new WaitForFixedUpdate();
-                }
-            default:
-                break;
+                GetComponent<Collider>().isTrigger = true;
+                break;  
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             switch (fishType)
             {
                 case FishType.FollowingFish:
-                    isFollowing = true;
                     transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, followSpeed * Time.deltaTime);
-                    break;
-                default:
                     break;
             }
          
@@ -67,14 +50,24 @@ public class Fish : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        switch (fishType)
+        if (other.CompareTag("Player"))
         {
-            case FishType.FollowingFish:
-                isFollowing = false;
-                transform.position = Vector3.MoveTowards(transform.position, originalPosition, returnSpeed * Time.deltaTime);
-                break;
-            default:
-                break;
+            switch (fishType)
+            {
+                case FishType.FollowingFish:
+                    StartCoroutine(ReturnOriginalPos());
+                    break;
+            }
         }
     }
+
+    private IEnumerator ReturnOriginalPos()
+    {
+        while (transform.position != originalPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, originalPosition, returnSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+    
 }

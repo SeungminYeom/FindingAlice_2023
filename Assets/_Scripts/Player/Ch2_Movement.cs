@@ -5,25 +5,76 @@ using UnityEngine;
 
 public class Ch2_Movement : Movement
 {
-    //private bool canJump = true;
-    public Vector3 speedOffset = new Vector3(1, 0, 0);
-    public GameObject Clock;
+    public GameObject   Clock;
+    private Animator  animator;
+    public static Ch2_Movement instance;
+    private float playerGravityModifier = 4f;
+    public bool jump = false;
 
 
+    protected void Awake()
+    {
+        animator = GetComponent<Animator>();
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+        jumpForce = 12;
+        moveSpeed = 4;
+        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y + playerGravityModifier, Physics.gravity.z);
+    }
+    
     private void Update()
     {
-        xAxis = Input.GetAxisRaw("Horizontal");
+        float oxygenRatio = OxygenBar.instance.OxygenRatio;
+        animator.SetFloat("Depletion", oxygenRatio);
+        jump = jumpable;
 
-        if (Input.GetKeyDown(KeyCode.Space) && !jumpByKey && jumpable)
+#if UNITY_EDITOR
+        xAxis = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            jumpByKey = true;
+            JumpInput();
         }
+
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        {
+            animator.SetBool("isSwimming", true);
+        }
+        else
+        {
+            animator.SetBool("isSwimming", false);
+        }
+
+#elif UNITY_ANDROID
+        xAxis = joystick.Horizontal;
+
+    if (joystick.JumpButtonPressed)
+    {
+        JumpInput();
+        animator.Play("Jumping");
     }
+
+    if (xAxis != 0)
+    {
+        animator.SetBool("isSwimming", true);
+    }
+    else
+    {
+        animator.SetBool("isSwimming", false);
+    }
+#endif
+
+    }
+
+
 
     private void FixedUpdate()
     {
         base.Move();
         Jump();
+        if (jumpable)
+        {
+            //ClockManager.instance.StartClockReload();
+        }
     }
 
     protected override void Jump()
@@ -35,6 +86,7 @@ public class Ch2_Movement : Movement
         rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         StartCoroutine(ResetJumpDelay());
+
     }
 
     IEnumerator ResetJumpDelay()
@@ -44,38 +96,23 @@ public class Ch2_Movement : Movement
         jumpByKey = false;
     }
 
-    void OnTriggerStay(Collider other)
+    public void EnterRipCurrent(Vector3 vec)
     {
-        switch (other.tag)
+        if (!Clock.activeSelf)
         {
-            case "RipCurrent":
-                if (!Clock.activeSelf)
-                {
-                    rigid.velocity = Vector3.zero;
-                    rigid.transform.Translate(speedOffset * Time.deltaTime);
-                    //rigid.velocity = speedOffset;
-                    //rigid.AddForce(speedOffset, ForceMode.Impulse);
-                    StateBeginShoot();
-                    rigid.useGravity = false;
-                }
-                    break;
-            default:
-                return;
+            rigid.velocity = Vector3.zero;
+            rigid.transform.Translate(vec * Time.deltaTime);
+            jumpable = false;
+            movable = false;
+            rigid.useGravity = false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void ExitRipCurrent()
     {
-        switch (other.tag)
-        {
-            case "RipCurrent":
-                jumpable = true;
-                movable = true;
-                rigid.useGravity = true;
-                break;
-            default:
-                return;
-        }
+        jumpable = true;
+        movable = true;
+        rigid.useGravity = true;
     }
 
 }

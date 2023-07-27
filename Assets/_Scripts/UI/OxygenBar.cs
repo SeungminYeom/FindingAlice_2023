@@ -15,6 +15,7 @@ public class OxygenBar : MonoBehaviour
     private float depletionRate;
     private float oxygenItem;
     private float caveOxygenRate;
+    public float OxygenRatio;
 
     private void Awake()
     {
@@ -38,9 +39,11 @@ public class OxygenBar : MonoBehaviour
     }
 
     private IEnumerator OxygenBarUpdate()
-    {        
+    {
+        
         while (oxygenBar.value <= maxOxygen && oxygenBar.value > minOxygen)
         {
+            OxygenRatio = oxygenBar.value;
             oxygenBar.value -= depletionRate * Time.deltaTime;
 
             yield return null;
